@@ -71,62 +71,18 @@ const AlertTriangle = (props) => (
     </svg>
 );
 
-// --- Static Data ---
-const statCardsData = [
-    {
-        title: "Total Revenue",
-        value: "$45,231",
-        trend: "+12.5%",
-        trendText: "vs. last month",
-        trendColor: "text-secondary",
-        borderColor: "border-primary",
-        Icon: TrendingUp,
-    },
-    {
-        title: "New Users",
-        value: "2,450",
-        trend: "+7.1%",
-        trendText: "vs. last week",
-        trendColor: "text-primary",
-        borderColor: "border-secondary",
-        Icon: Zap,
-    },
-    {
-        title: "Tasks Completed",
-        value: "92",
-        trend: "98% On Time",
-        trendText: "",
-        trendColor: "text-green-500",
-        borderColor: "border-yellow-500",
-        Icon: CheckCircle,
-    },
-    {
-        title: "Server Health",
-        value: "99.9%",
-        trend: "1 Minor Alert",
-        trendText: "",
-        trendColor: "text-red-500",
-        borderColor: "border-red-500",
-        Icon: AlertTriangle,
-    },
-];
-
-const activityFeedData = [
-    { name: "John", action: "added a new feature request.", time: "2 minutes ago", color: 'bg-secondary' },
-    { name: "Data", action: "export to CSV completed.", time: "1 hour ago", color: 'bg-primary' },
-    { name: "Marketing", action: "campaign launched.", time: "5 hours ago", color: 'bg-yellow-500' },
-    { name: "Jane", action: "updated project documentation.", time: "1 day ago", color: 'bg-indigo-400' },
-];
-
 // --- Reusable Components ---
 
-const StatCard = ({ title, value, trend, trendText, trendColor, borderColor }) => (
+// NOTE: Added 'Icon' to destructured props and used standard Tailwind classes
+const StatCard = ({ title, value, trend, trendText, trendColor, borderColor, Icon }) => (
+    // Replaced custom 'primary' and 'secondary' with standard Tailwind colors
     <div className={`bg-white p-6 rounded-xl shadow-lg border-t-4 ${borderColor} hover:shadow-xl transition duration-300`}>
         <p className="text-sm font-medium text-gray-500">{title}</p>
         <p className="text-3xl font-extrabold text-gray-900 mt-1">{value}</p>
         <div className="flex items-center mt-3 text-sm">
             <span className={`${trendColor} font-semibold flex items-center`}>
-                <Icon className="w-4 h-4 mr-1" />
+                {/* Use the Icon prop */}
+                <Icon className="w-4 h-4 mr-1" /> 
                 {trend}
             </span>
             {trendText && <span className="ml-2 text-gray-500">{trendText}</span>}
@@ -164,9 +120,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         <aside
             className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition duration-300 ease-in-out w-64 bg-white shadow-xl z-40 flex flex-col p-4 space-y-6`}
         >
-            {/* App Logo */}
+            {/* App Logo - FIX: Used 'Dashboard' component */}
             <div className="flex items-center space-x-2 py-2">
-                <LayoutDashboard className="w-8 h-8 text-primary" />
+                <Dashboard className="w-8 h-8 text-indigo-600" /> {/* Replaced text-primary with text-indigo-600 */}
                 <h1 className="text-2xl font-extrabold text-gray-800">Project Atlas</h1>
             </div>
 
@@ -179,8 +135,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                         onClick={toggleSidebar} // Close sidebar on mobile click
                         className={`flex items-center space-x-3 p-3 mt-2 rounded-xl font-semibold transition duration-150 ${
                             item.active
-                                ? 'text-white bg-primary hover:bg-indigo-700'
-                                : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                                // Replaced bg-primary and text-primary with standard Tailwind colors
+                                ? 'text-white bg-indigo-600 hover:bg-indigo-700' 
+                                : 'text-gray-600 hover:bg-gray-100 hover:text-indigo-600'
                         }`}
                     >
                         <item.Icon className="w-5 h-5" />
@@ -212,6 +169,57 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     );
 };
 
+// --- Static Data ---
+const statCardsData = [
+    {
+        title: "Total Revenue",
+        value: "$45,231",
+        trend: "+12.5%",
+        trendText: "vs. last month",
+        // Replaced text-secondary/border-primary with standard Tailwind colors
+        trendColor: "text-teal-500", 
+        borderColor: "border-indigo-600", 
+        Icon: TrendingUp,
+    },
+    {
+        title: "New Users",
+        value: "2,450",
+        trend: "+7.1%",
+        trendText: "vs. last week",
+        // Replaced text-primary/border-secondary with standard Tailwind colors
+        trendColor: "text-indigo-600", 
+        borderColor: "border-teal-500", 
+        Icon: Zap,
+    },
+    {
+        title: "Tasks Completed",
+        value: "92",
+        trend: "98% On Time",
+        trendText: "",
+        trendColor: "text-green-500",
+        borderColor: "border-yellow-500",
+        Icon: CheckCircle,
+    },
+    {
+        title: "Server Health",
+        value: "99.9%",
+        trend: "1 Minor Alert",
+        trendText: "",
+        trendColor: "text-red-500",
+        borderColor: "border-red-500",
+        Icon: AlertTriangle,
+    },
+];
+
+const activityFeedData = [
+    // Replaced bg-secondary/bg-primary with standard Tailwind colors
+    { name: "John", action: "added a new feature request.", time: "2 minutes ago", color: 'bg-teal-500' }, 
+    { name: "Data", action: "export to CSV completed.", time: "1 hour ago", color: 'bg-indigo-600' }, 
+    { name: "Marketing", action: "campaign launched.", time: "5 hours ago", color: 'bg-yellow-500' },
+    { name: "Jane", action: "updated project documentation.", time: "1 day ago", color: 'bg-indigo-400' },
+];
+
+
 // --- Main App Component ---
 
 const App = () => {
@@ -221,17 +229,14 @@ const App = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    // Define custom colors for Tailwind in this scope
-    // const primary = '#4f46e5'; 
-    // const secondary = '#10b981';
-
     return (
-        <div className="bg-bg-light min-h-screen font-sans">
+        <div className="bg-gray-100 min-h-screen font-sans">
             
             {/* Mobile Sidebar Toggle Button */}
             <button 
                 onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-primary text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                // Replaced bg-primary with standard Tailwind color
+                className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-indigo-600 text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
             >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isSidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
@@ -294,4 +299,5 @@ const App = () => {
     );
 };
 
-export default Dashboard;
+// FIX: Export the main 'App' component instead of the 'Dashboard' icon component
+export default App;
