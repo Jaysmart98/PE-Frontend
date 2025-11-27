@@ -54,6 +54,7 @@ const Signup = () => {
     //         setUserStatus('Sign In Failed');
     //       }
     //     };
+    
 
     const handleInputChange = (e) => {
         console.log(e.target.value, e.target.name);
